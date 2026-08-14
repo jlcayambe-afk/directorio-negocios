@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Directorio de Negocios",                       
   description: "Encuentra los mejores negocios locales",
-  verificación: {
+  verification: {
     google: "fGPsaazeDpJqcUDf0iWBlzWUlEaBnEQC4-zDobiOIiw",
   },
   };
