@@ -25,7 +25,11 @@ export default function HomePage() {
   useEffect(() => {
     checkUserAndFetchBusinesses()
   }, [])
-
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    setUser(null);
+    window.location.reload();
+  };
   const checkUserAndFetchBusinesses = async () => {
     // 1. Obtener usuario si inició sesión
     const { data: { user } } = await supabase.auth.getUser()
@@ -78,12 +82,23 @@ export default function HomePage() {
     {/* 3. Botones a la derecha (Manteniendo tu lógica de inicio de sesión) */}
     <div>
       {user ? (
-        <Link
-          href="/dashboard"
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-        >
-          Mi Panel
-        </Link>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-gray-600 font-medium">
+              {user.email}
+            </span>
+            <Link
+              href="/dashboard"
+              className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-blue-700"
+            >
+              Mi Panel
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-sm font-medium transition-colors"
+            >
+              Cerrar Sesión
+            </button>
+          </div>
       ) : (
         <div className="space-x-2">
           <Link
